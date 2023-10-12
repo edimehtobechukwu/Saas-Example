@@ -1,0 +1,428 @@
+@use '../abstract/variables' as *;
+
+//********************************
+//? Control font styles
+//********************************
+
+@mixin font-style(
+    $size: (
+        inherit,
+    ),
+    $weight,
+    $color: (
+        inherit,
+    ),
+    $transform: lowercase
+) {
+    font-size: map-get($fontSize, #{$size});
+    font-weight: map-get($fontWeight, #{$weight});
+    color: var(--#{$color});
+    text-transform: $transform;
+}
+
+//********************************
+//? Positions and directions for elements
+//********************************
+
+@mixin position($style, $content, $align, $direction, $height: (initial)) {
+    height: #{$height};
+    display: $style;
+    justify-content: $content;
+    align-items: $align;
+    flex-direction: $direction;
+}
+
+//********************************
+//? Style for title boxes
+//********************************
+
+@mixin title {
+    @include font-style(titleBox, semiBold, textHeading, capitalize);
+}
+
+//********************************
+//? Style for events status buttons projects
+//********************************
+
+@mixin status() {
+    .status {
+        text-transform: capitalize;
+        font-weight: map-get($fontWeight, semibold);
+        @extend %Flex;
+        gap: 1.4rem;
+        &:has(.active) > span {
+            background-color: var(--activeBg);
+            color: var(--secondary);
+            @include event;
+        }
+        &:has(.high) > span {
+            background-color: var(--priorityBg);
+            color: var(--error);
+            @include event;
+        }
+        &:has(.cancelled) > span {
+            background-color: var(--priorityBg);
+            color: var(--error);
+            @include event;
+        }
+        &:has(.done) > span {
+            background-color: var(--doneBg);
+            color: var(--done);
+            @include event;
+        }
+        &:has(.low) > span {
+            background-color: var(--doneBg);
+            color: var(--done);
+            @include event;
+        }
+        &:has(.progress) > span {
+            background-color: var(--progressBg);
+            color: var(--progressText);
+            @include event;
+        }
+        &:has(.paused) > span {
+            background-color: var(--progressBg);
+            color: var(--progressText);
+            @include event;
+        }
+        &:has(.medium) > span {
+            background-color: var(--progressBg);
+            color: var(--progressText);
+            @include event;
+        }
+    }
+}
+
+@mixin event {
+    padding: 0.4rem 1rem;
+    font-size: 0.8rem !important;
+    text-transform: uppercase;
+    letter-spacing: 0.2rem;
+    border-radius: 10rem;
+}
+//********************************
+//? Style for box project
+//********************************
+
+@mixin boxProject {
+    @extend %Box;
+    @extend %Flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    position: relative;
+    overflow: hidden;
+    &__menuDots {
+        position: absolute;
+        top: 1.5rem;
+        right: 1.5rem;
+        cursor: pointer;
+        height: 100%;
+
+        &__menu {
+            position: absolute;
+            top: -2rem;
+            right: -10rem;
+            background-color: hsl(0, 0%, 96%);
+            height: 104%;
+            width: 6rem;
+            box-shadow: 3px 0px 6px 2px rgba(0, 0, 0, 0.22);
+            transition: all 0.2s linear;
+            @include position(flex, space-evenly, center, column, null);
+
+            @include btnAction();
+        }
+    }
+
+    &__menuDots:hover &__menuDots__menu {
+        right: -2rem;
+    }
+    &__company {
+        @extend %FlexColumn;
+        padding-right: 1rem;
+        &--name {
+            @include font-style(inherit, semibold, textHeading, capitalize);
+        }
+
+        &__info {
+            display: grid;
+            grid-template-columns: min-content 1fr;
+            gap: 0.2rem;
+            align-items: center;
+            margin-top: 1rem;
+            &--img {
+                @extend %FlexColumn;
+                letter-spacing: 0.205em;
+                text-transform: uppercase;
+                font-size: 1rem;
+                img {
+                    margin-left: -1rem;
+                }
+            }
+
+            &--text {
+                p {
+                    font-weight: map-get($fontWeight, semibold);
+                    text-transform: capitalize;
+                    font-size: 1.3rem;
+                }
+                @extend %FlexColumn;
+            }
+        }
+    }
+    &__events {
+        font-weight: map-get($fontWeight, semibold);
+        @include status;
+        @extend %FlexColumn;
+        gap: 1rem;
+        margin-top: 2rem;
+        @include responsive(phone) {
+            margin-top: 0;
+        }
+    }
+
+    &__action {
+        @extend %Flex;
+        margin-top: 1rem;
+        gap: 1rem;
+        @include responsive(tablet) {
+            margin-top: 0;
+        }
+
+        &__assets {
+            @extend %FlexColumn;
+            @include status;
+            gap: 1rem;
+            .status:has(p) {
+                font-size: 1.5rem;
+                font-weight: map-get($fontWeight, semibold);
+            }
+        }
+    }
+}
+
+//********************************
+//? Style for main header top bar section
+//********************************
+
+@mixin header {
+    &__header {
+        &__top {
+            @include position(flex, space-between, center, row);
+
+            &__search {
+                border: 1px solid var(--border);
+                border-radius: 50rem;
+                padding: 0.8rem 1rem;
+                box-shadow: var(--shadow);
+                @extend %Flex;
+                &--input {
+                    cursor: pointer;
+                    border: none;
+                    background-color: transparent;
+                    font-family: inherit;
+
+                    &:focus {
+                        outline: 0;
+                    }
+
+                    &::placeholder {
+                        color: var(--textBody300);
+                    }
+                }
+
+                &--submit {
+                    cursor: pointer;
+                    @extend %Flex;
+                    background-color: transparent;
+                    border: 0;
+
+                    &::focus {
+                        outline: 0;
+                    }
+                }
+            }
+
+            &__right {
+                button {
+                    @include btn(mainAddProject);
+                }
+                &__user {
+                    text-transform: capitalize;
+                    @extend %Flex;
+                    gap: 2rem;
+                    &__profile {
+                        cursor: pointer;
+                        position: relative;
+
+                        &--name {
+                            @include font-style(
+                                menuLinks,
+                                semibold,
+                                null,
+                                capitalize
+                            );
+
+                            @extend %Hide;
+                        }
+
+                        &__dropDownBox {
+                            position: absolute;
+                            width: 17rem;
+                            height: 12.5rem;
+                            left: -11.4rem;
+                            top: 4.5rem;
+                            border: 1px solid var(--border);
+                            box-shadow: var(--shadow);
+                            padding: 1rem;
+                            transform: translateY(0rem);
+                            z-index: 50;
+                            border-radius: 4px;
+                            background-color: #fff;
+
+                            @extend %FlexColumn;
+                            &--title {
+                                border-bottom: 1px solid var(--border);
+                                padding-bottom: 0.8rem;
+                            }
+
+                            &__links {
+                                @extend %FlexColumn;
+                                margin-top: 0.8rem;
+                                gap: 1rem;
+
+                                &--link {
+                                    text-decoration: none;
+                                    color: inherit;
+                                    transition: hover 0.4s ease;
+                                    &:hover {
+                                        color: var(--secondary);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .title {
+        margin-top: 2rem;
+        @include font-style(textXl, bold, textHeading, capitalize);
+    }
+}
+
+//********************************
+//? Button style Actions(edit/remove)
+
+@mixin btnAction {
+    &:has(.btns) > .btnEdit {
+        color: var(--secondary);
+    }
+    &:has(.btns) > .btnRemove {
+        color: var(--error);
+    }
+    &:has(.btns) > .btnLaunch {
+        color: var(--main);
+    }
+    .btns {
+        background-color: transparent;
+        border: 0;
+        cursor: pointer;
+        text-transform: capitalize;
+        @extend %FlexColumn;
+        align-items: center;
+        font-size: 1.2rem;
+
+        img {
+            width: 1.8rem;
+            height: 1.8rem;
+        }
+        &:focus {
+            outline: 0;
+        }
+    }
+}
+
+//********************************
+
+//********************************
+//? Button style components
+//********************************
+
+@mixin btn($style: inherit) {
+    background-color: transparent;
+    border: 0;
+    @extend %Flex;
+    text-transform: capitalize;
+    font-size: 1.8rem;
+    font-weight: map-get($fontWeight, semibold);
+    font-family: inherit;
+    
+    cursor: pointer;
+    &::focus {
+        outline: 0;
+    }
+    @if $style == mainAddProject {
+        background-color: var(--secondary);
+        padding: 1rem;
+        border-radius: 10rem;
+        box-shadow: var(--shadow);
+        transition: hover 0.2s ease;
+        & > * {
+            margin-right: 0.7rem;
+        }
+
+        &:hover {
+            opacity: 0.9;
+        }
+
+        @extend %Hide;
+    }
+    @if $style == submit {
+        background-color: var(--secondary);
+        padding: 1.6rem;
+        border-radius: 10rem;
+        box-shadow: var(--shadow);
+        transition: hover 0.2s ease;
+        & > * {
+            margin-right: 0.7rem;
+        }
+
+        &:hover {
+            opacity: 0.9;
+        }
+    
+    }
+}
+
+//********************************
+//? Responsive breakpoints
+//********************************
+
+@mixin responsive($breakpoint) {
+    @if $breakpoint == 'phone' {
+        @media (min-width: 24.625rem) {
+            @content;
+        }
+    }
+    @if $breakpoint == 'phone-land' {
+        @media (min-width: 31.25rem) {
+            @content;
+        }
+    }
+    @if $breakpoint == 'tablet' {
+        @media (min-width: 45.625rem) {
+            @content;
+        }
+    }
+    @if $breakpoint == 'tablet-land' {
+        @media (min-width: 56.25rem) {
+            @content;
+        }
+    }
+    @if $breakpoint == 'desktop' {
+        @media (min-width: 75rem) {
+            @content;
+        }
+    }
+}

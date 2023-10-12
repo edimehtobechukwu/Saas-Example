@@ -1,0 +1,160 @@
+:root {
+    //General colours
+
+    --body: hsl(240, 7%, 97%);
+    --main: hsl(248, 93%, 62%);
+    --secondary: hsl(149, 50%, 53%);
+    --textHeading: #2b2d31;
+
+    --textBody: hsl(214, 5%, 30%);
+    --textBody300: hsla(219, 3%, 42%);
+
+    --error: hsl(4, 66%, 44%);
+    --shadow: 0px 5px 30px 1px hsla(248, 93%, 62%, 0.04);
+
+    --highlight: hsl(149deg 100% 74%);
+    --border: hsl(210, 6%, 93%);
+    --separator: hwb(240 67% 33%);
+    --white: hsl(0, 0%, 100%);
+    // Status colours forr events
+
+    --activeBg: hsla(149, 50%, 91%, 1);
+    --priorityBg: hsla(0, 100%, 90%, 1);
+    --doneBg: hsla(202, 100%, 92%, 1);
+    --doneText: hsla(194, 66%, 44%, 1);
+    --progressBg: hsla(47, 100%, 90%, 1);
+    --progressText: hsla(47, 90%, 38%, 1);
+
+    //Main-font
+    --font: 'DM Sans', sans-serif;
+}
+
+$fontSize: (
+    'base': 1.5rem,
+    'menuLinks': 1.87rem,
+    'textXl': 3rem,
+    'textLg': 2rem,
+    'titleBox': 1.7rem,
+    'titleForm': 2.3rem,
+    'label': 1.3rem,
+    'small': 1rem,
+);
+
+$fontWeight: (
+    'regular': 400,
+    'semibold': 500,
+    'bold': 700,
+);
+
+.linkActive {
+    color: var(--textHeading);
+    transform: translateX(1rem);
+    z-index: 100;
+    color: var(--textHeading) !important;
+    svg {
+        path {
+            fill: var(--textHeading);
+        }
+    }
+    &::after {
+        right: 0rem !important;
+        opacity: 1 !important;
+        z-index: -1;
+    }
+}
+
+.divider {
+    width: 48vw;
+    transform: translateX(-3rem);
+    margin-bottom: 3rem;
+    border-bottom: dashed;
+}
+
+.slideLeft {
+    transition-delay: transform 1s;
+    transform: translateX(0rem) !important;
+}
+.dblock {
+    display: block !important;
+}
+
+.mt-3 {
+    margin-top: 3rem;
+}
+
+%Flex {
+    display: flex;
+    align-items: center;
+}
+%FlexColumn {
+    display: flex;
+    flex-direction: column;
+}
+
+%Hide {
+    display: none;
+}
+
+.hide {
+    display: none;
+}
+
+.showBox {
+    display: block;
+    animation: bounce 1s;
+    opacity: 1;
+}
+
+.rotate {
+    transform: rotateX(180deg);
+    opacity: 0.5;
+    transition: all 0.3s ease;
+}
+
+.lineThrough {
+    text-decoration-line: line-through;
+    color: hsl(223, 4%, 65%);
+}
+
+%Box {
+    background-color: #fff;
+    padding: 1.8rem;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+    border-radius: 1.2rem;
+}
+
+.shake {
+    animation:shaking 0.5s linear !important;
+}
+
+//Animation bouncing for boxes
+
+@keyframes bounce {
+    0% {
+        transform: translateY(-1rem);
+    }
+
+    50% {
+        transform: translateY(1rem);
+    }
+}
+
+@keyframes shaking {
+    0%{
+        transform: translateX(-2rem);
+    }
+
+    25% {
+        transform: translateX(2px);
+    }
+
+    50%{
+        transform: translateX(-2rem);
+    }
+
+    75% {
+        transform: translateX(2px);
+    }
+  
+}

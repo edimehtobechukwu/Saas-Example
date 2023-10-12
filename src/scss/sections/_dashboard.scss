@@ -1,0 +1,190 @@
+@use '../abstract/' as *;
+
+.dashboard {
+    @include header;
+
+    &__container {
+        margin: 2rem 0;
+        @extend %FlexColumn;
+        gap: 2rem;
+        &__welcome {
+            @extend %Box;
+
+            &--heading {
+                @include font-style(textLg, bold, textHeading, capitalize);
+                span {
+                    color: var(--secondary);
+                }
+            }
+            &__content {
+                margin-top: 2rem;
+                font-weight: map-get($fontWeight, semibold);
+                text-transform: capitalize;
+                &--text {
+                    span {
+                        color: var(--secondary);
+                    }
+                }
+
+                &__temp {
+                    text-align: center;
+                    &--icon {
+                        width: 9rem;
+                    }
+                    &__text {
+                        &--outdoor {
+                            @extend %Flex;
+                            justify-content: center;
+                            span {
+                                @extend %Flex;
+                                margin-left: 0.4rem;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        &__project {
+            @extend %Box;
+
+            &__top {
+                @extend %Flex;
+                justify-content: space-between;
+                padding-bottom: 1rem;
+                border-bottom: 2px solid var(--border);
+                &--title {
+                    @include title;
+                }
+
+                &__filter {
+                    @extend %Flex;
+                    gap: 1rem;
+                    &--title {
+                        @include title;
+                        display: none;
+                    }
+
+                    &--select {
+                        border: none;
+                        padding: 0.5rem;
+                        border: 2px solid var(--border);
+                        font-family: inherit;
+                        font-weight: map-get($fontWeight, semibold);
+                        text-transform: capitalize;
+                        border-radius: 5px;
+                        cursor: pointer;
+                        &:focus,
+                        &:active {
+                            outline: 0;
+                            border-color: var(--secondary);
+                        }
+                    }
+                }
+            }
+
+            &__content {
+                margin: 2rem 0;
+                @extend %FlexColumn;
+                gap: 2rem;
+                &__item {
+                    @include boxProject;
+                }
+            }
+        }
+        &__meeting {
+            @extend %Box;
+            &__top {
+                @extend %Flex;
+                justify-content: space-between;
+                padding-bottom: 1rem;
+                border-bottom: 2px solid var(--border);
+
+                &--title {
+                    @include title;
+                }
+
+                &--add {
+                    @include btn;
+                }
+            }
+            &__content {
+                margin: 1.7rem 0;
+                @extend %FlexColumn;
+                gap: 1rem;
+                &__item {
+                    @extend %Flex;
+                    justify-content: space-between;
+                    padding-bottom: 1.4rem;
+                    border-bottom: 2px solid var(--border);
+                    &__name {
+                        @extend %Flex;
+                        gap: 0.4rem;
+                        &__text {
+                            &--company {
+                                font-weight: 500;
+                                text-transform: capitalize;
+                            }
+
+                            &--user {
+                                font-size: 1rem;
+                                letter-spacing: 0.205em;
+                                text-transform: uppercase;
+                            }
+                        }
+                    }
+
+                    &__time {
+                        @extend %FlexColumn;
+                        gap: 0.6rem;
+                        & > * {
+                            @extend %Flex;
+                            gap: 0.5rem;
+                            font-weight: 500;
+                            text-transform: capitalize;
+                        }
+                    }
+                }
+            }
+        }
+        &__task {
+            @extend %Box;
+            &__top {
+                @extend %Flex;
+                justify-content: space-between;
+                padding-bottom: 1rem;
+                border-bottom: 2px solid var(--border);
+
+                &--title {
+                    @include title;
+                }
+
+                &--add {
+                    @include btn;
+                }
+            }
+
+            &__content {
+                &__item {
+                    margin: 2rem 0;
+                    @extend %Flex;
+                    justify-content: space-between;
+                    padding-bottom: 1.4rem;
+    border-bottom: 2px solid var(--border);
+                    &__text {
+                        @extend %Flex;
+                        gap: 1rem;
+                        cursor: pointer;
+                    }
+
+                    &__action {
+                        @extend %Flex;
+                        gap: 1.2rem;
+                        & > * {
+                            @include btn;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
